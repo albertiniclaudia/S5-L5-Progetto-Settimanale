@@ -3,28 +3,10 @@ let arrayAnimali = ['🐱', '🦉', '🐾', '🦁', '🦋', '🐛', '🐝', '�
 //https://html-css-js.com/html/character-codes/
 
 var iconsFind = document.getElementsByClassName('find');
-let min = 0;
-let sec = 0;
-let timer;
-
-function tempo() {
-    sec++;
-    if (sec >= 60) {
-        sec = 0;
-        min++;
-        if (min >= 60) {
-            alert('AO cambia gioco che é meglio (:')
-        }
-    }
-    timerSet();
-}
-
-timer = setInterval(tempo, 1000);
-
-function timerSet() {
-    document.querySelector('.timer').innerText = 'Tempo: ' + min + ' min ' + sec + ' sec '
-}
-
+var vincita = document.querySelector('#modal');
+var min = 0;
+var sec = 0;
+var timer;
 
 let arrayComparison = [];
 
@@ -133,21 +115,33 @@ function displayIcon() {
 }
 
 //una funzione che viene mostrata alla fine quando sono tutte le risposte esatte
-let vincita = document.querySelector('modal');
-
 function apriFinestra() {
     if (iconsFind.length == 24) {
         vincita.className = 'active';
-
+        document.getElementById('tempoTrascorso').innerText = 'Tempo: ' + min + ' min ' + sec + ' sec ';
     }
 }
 // una funzione che nasconde la modale alla fine e riavvia il gioco
 function playAgain() {
+    vincita.className = '';
     startGame();
 }
 
-function chiudiFinestra() {
-    
+// una funzione che calcola il tempo e aggiorna il contenitore sotto
+function tempo() {
+    sec++;
+    if (sec >= 60) {
+        sec = 0;
+        min++;
+        if (min >= 60) {
+            alert('AO cambia gioco che é meglio (:')
+        }
+    }
+    timerSet();
 }
 
-// una funzione che calcola il tempo e aggiorna il contenitore sotto
+timer = setInterval(tempo, 1000);
+
+function timerSet() {
+    document.querySelector('.timer').innerText = 'Tempo: ' + min + ' min ' + sec + ' sec '
+}
